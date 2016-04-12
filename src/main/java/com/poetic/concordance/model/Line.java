@@ -1,6 +1,5 @@
 package com.poetic.concordance.model;
 
-import java.util.List;
 
 /**
  * Represents a line in a sonnet. Consists of words that are strings
@@ -9,13 +8,13 @@ import java.util.List;
  */
 public class Line {
 
-	private List<String> words;
+	private String words;
 
 	/**
 	 * Returns words of this line
 	 * @return words
 	 */
-	public List<String> getWords() {
+	public String getWords() {
 		return words;
 	}
 
@@ -23,7 +22,7 @@ public class Line {
 	 * Inject words in the line
 	 * @param words
 	 */
-	public void setWords(List<String> words) {
+	public void setWords(String words) {
 		this.words = words;
 	}
 	

@@ -1,5 +1,7 @@
 package com.poetic.concordance.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -17,6 +19,6 @@ public interface SonnetReaderService {
 	 * @param inputSource the input source (directory/ db connection string) where the sonnet input lives
 	 * @return a list of sonnet objects read from the input source
 	 */
-	List<Sonnet> readSonnets(String inputSource);
+	List<Sonnet> readSonnets(String inputSource) throws FileNotFoundException, IOException;
 
 }
