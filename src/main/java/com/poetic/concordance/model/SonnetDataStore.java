@@ -12,6 +12,18 @@ public class SonnetDataStore {
 	
 	private Map<Integer, Sonnet> sonnetDictionary;
 	private Map<String, List<WordInformation>> wordDictionary;
+	private static SonnetDataStore instance = null;
+	
+	private SonnetDataStore() {	
+	}
+	
+	public static SonnetDataStore getInstance() {
+		if(instance == null) {
+			instance = new SonnetDataStore();
+		}
+		
+		return instance;
+	}
 	
 	/**
 	 * Returns the sonnet data keyed by the sonnet number

@@ -27,13 +27,16 @@ public class SonnetFileReaderService implements SonnetReaderService {
 			File[] sonnetFiles = inputDirectory.listFiles();
 			if(sonnetFiles != null && sonnetFiles.length > 0) {
 				for(File sonnetFile: sonnetFiles) {
+					//Build a sonnet object from the text of each file in the directory
 					Sonnet sonnet = buildSonnet(sonnetNumber++, sonnetFile);
 					sonnets.add(sonnet);
 				}
 			} else {
+				// Directory is empty
 				throw new IOException("" +inputDirectory + " directory is empty");
 			}
 		} else {
+			//Invalid directory
 			throw new FileNotFoundException("Directory " +inputDirectory + " doesn't exist on the file system");
 		}
 		
@@ -47,6 +50,7 @@ public class SonnetFileReaderService implements SonnetReaderService {
 			bufferedReader = new BufferedReader(new FileReader(sonnetFile));
 			String wordLine = bufferedReader.readLine();
 			while(wordLine != null) {
+				//Parse a line from the file and create a line object. Store all the lines in a list.
 				Line sonnetLine = new Line();
 				sonnetLine.setWords(wordLine);
 				sonnetLines.add(sonnetLine);
@@ -63,6 +67,8 @@ public class SonnetFileReaderService implements SonnetReaderService {
 				e.printStackTrace();
 			}
 		}
+		
+		//Build a sonnet object from the parsed lines and the given sonnetNumber
 		Sonnet sonnet = new Sonnet();
 		sonnet.setNumber(sonnetNumber);
 		sonnet.setLines(sonnetLines);

@@ -1,6 +1,6 @@
 package com.poetic.concordance.model;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Holds the sonnet and line information for a given word
@@ -10,7 +10,7 @@ import java.util.List;
 public class WordInformation {
 	
 	private int sonnetNumber;
-	private List<Integer> lineNumbers;
+	private Set<Integer> lineNumbers;
 	
 	/**
 	 * Returns the sonnet number in which the word is found
@@ -32,15 +32,16 @@ public class WordInformation {
 	 * Returns the line numbers in a sonnet in which the word is found
 	 * @return the line numbers
 	 */
-	public List<Integer> getLineNumbers() {
+	public Set<Integer> getLineNumbers() {
 		return lineNumbers;
 	}
 	
 	/**
-	 * Inject the line numbers in which this word is found
+	 * Inject the line numbers in which this word is found. Set ensures unique line numbers for repeated words
+	 * in the same line
 	 * @param lineNumbers line numbers
 	 */
-	public void setLineNumbers(List<Integer> lineNumbers) {
+	public void setLineNumbers(Set<Integer> lineNumbers) {
 		this.lineNumbers = lineNumbers;
 	}
 
