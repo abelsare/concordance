@@ -67,7 +67,7 @@ public class SonnetBuilderService {
 					} else {
 						//Just update word information in the current sonnet with new line number
 						for(WordInformation existingWordEntry : existingWordEntries) {
-							//Get the maching sonnet number entry from the list and add the new line number
+							//Get the matching sonnet number entry from the list and add the new line number
 							if(existingWordEntry.getSonnetNumber() == sonnet.getNumber()) {
 								existingWordEntry.getLineNumbers().add(i+1);
 							}
@@ -81,13 +81,13 @@ public class SonnetBuilderService {
 
 	private List<WordInformation> processNewWordEntry(int sonnetNumber, int currentLineNumber) {
 		List<WordInformation> newWordEntries = new ArrayList<WordInformation>();
-		Set<Integer> matchingLines = new HashSet<Integer>();
+		Set<Integer> matchingLineNumbers = new HashSet<Integer>();
 		//Set the current line number as matching line for this word
-		matchingLines.add(currentLineNumber);
+		matchingLineNumbers.add(currentLineNumber);
 		//Create a new wordInformation object and add it to the dictionary
 		WordInformation wordInformation = new WordInformation();
 		wordInformation.setSonnetNumber(sonnetNumber);
-		wordInformation.setLineNumbers(matchingLines);
+		wordInformation.setLineNumbers(matchingLineNumbers);
 		newWordEntries.add(wordInformation);
 		return newWordEntries;
 	}
