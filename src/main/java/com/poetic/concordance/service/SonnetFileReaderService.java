@@ -22,7 +22,7 @@ public class SonnetFileReaderService implements SonnetReaderService {
 	public List<Sonnet> readSonnets(String inputSource) throws FileNotFoundException, IOException {
 		List<Sonnet> sonnets = new ArrayList<Sonnet>();
 		int sonnetNumber = 1;
-		File inputDirectory = new File(inputSource);
+		File inputDirectory = new File(inputSource.trim());
 		if(inputDirectory.exists()) {
 			File[] sonnetFiles = inputDirectory.listFiles();
 			if(sonnetFiles != null && sonnetFiles.length > 0) {
@@ -46,6 +46,7 @@ public class SonnetFileReaderService implements SonnetReaderService {
 	private Sonnet buildSonnet(int sonnetNumber, File sonnetFile) throws IOException {
 		List<Line> sonnetLines = new ArrayList<Line>();
 		BufferedReader bufferedReader = null;
+		Sonnet sonnet = null;
 		try {
 			bufferedReader = new BufferedReader(new FileReader(sonnetFile));
 			String wordLine = bufferedReader.readLine();
@@ -56,6 +57,11 @@ public class SonnetFileReaderService implements SonnetReaderService {
 				sonnetLines.add(sonnetLine);
 				wordLine = bufferedReader.readLine();
 			}
+			//Build a sonnet object from the parsed lines and the given sonnetNumber
+			sonnet = new Sonnet();
+			sonnet.setNumber(sonnetNumber);
+			sonnet.setLines(sonnetLines);
+			sonnet.setTotalLines(sonnetLines.size());
 		} catch(IOException e) {
 			throw new IOException("Error reading a sonnet file");
 		} finally {
@@ -67,12 +73,6 @@ public class SonnetFileReaderService implements SonnetReaderService {
 				e.printStackTrace();
 			}
 		}
-		
-		//Build a sonnet object from the parsed lines and the given sonnetNumber
-		Sonnet sonnet = new Sonnet();
-		sonnet.setNumber(sonnetNumber);
-		sonnet.setLines(sonnetLines);
-		sonnet.setTotalLines(sonnetLines.size());
 		return sonnet;
 	}
 

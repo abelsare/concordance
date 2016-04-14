@@ -60,18 +60,12 @@ public class SonnetBuilderService {
 					//Check if the word is already present in the dictionary
 					List<WordInformation> existingWordEntries = wordDictionary.get(word.toLowerCase());
 					if(existingWordEntries == null) {
-						//This means it is a new entry
+						//This means it is a new entry in the map
 						List<WordInformation> newWordEntries = processNewWordEntry(sonnet.getNumber(), i+1);
 						//Add the new wordInformation to the dictionary
 						wordDictionary.put(word.toLowerCase(), newWordEntries);
 					} else {
-						//Just update word information in the current sonnet with new line number
-						for(WordInformation existingWordEntry : existingWordEntries) {
-							//Get the matching sonnet number entry from the list and add the new line number
-							if(existingWordEntry.getSonnetNumber() == sonnet.getNumber()) {
-								existingWordEntry.getLineNumbers().add(i+1);
-							}
-						}
+						processExistingWordEntry(sonnet.getNumber(), i+1, existingWordEntries);	
 					}
 				}
 			}
@@ -79,17 +73,42 @@ public class SonnetBuilderService {
 		return wordDictionary;
 	}
 
+	private void processExistingWordEntry(int sonnetNumber, int currentLineNumber, List<WordInformation> existingWordEntries) {
+		WordInformation requiredWordInformation = null;
+		//Get the wordInformation corresponding to the current sonnet
+		for(WordInformation existingWordEntry : existingWordEntries) {
+			if(existingWordEntry.getSonnetNumber() == sonnetNumber) {
+				requiredWordInformation = existingWordEntry;
+				break;
+			}
+		}
+		if(requiredWordInformation == null) {
+			//A word is repeated in different sonnets. Create new wordInformation and add to the
+			//existing entries list
+			WordInformation newWordInformation = createWordInformation(sonnetNumber, currentLineNumber);
+			existingWordEntries.add(newWordInformation);
+		} else {
+			//A word is repeated in the same sonnet. Update the list of its lines
+			requiredWordInformation.getLineNumbers().add(currentLineNumber);
+		}
+	}
+
 	private List<WordInformation> processNewWordEntry(int sonnetNumber, int currentLineNumber) {
 		List<WordInformation> newWordEntries = new ArrayList<WordInformation>();
+		//Create a new wordInformation object and add it to the dictionary
+		WordInformation wordInformation = createWordInformation(sonnetNumber, currentLineNumber);
+		newWordEntries.add(wordInformation);
+		return newWordEntries;
+	}
+
+	private WordInformation createWordInformation(int sonnetNumber, int currentLineNumber) {
 		Set<Integer> matchingLineNumbers = new HashSet<Integer>();
 		//Set the current line number as matching line for this word
 		matchingLineNumbers.add(currentLineNumber);
-		//Create a new wordInformation object and add it to the dictionary
 		WordInformation wordInformation = new WordInformation();
 		wordInformation.setSonnetNumber(sonnetNumber);
 		wordInformation.setLineNumbers(matchingLineNumbers);
-		newWordEntries.add(wordInformation);
-		return newWordEntries;
+		return wordInformation;
 	}
 	
 	private List<String> tokenizeLine(String lineText) {

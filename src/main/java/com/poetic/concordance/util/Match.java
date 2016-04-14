@@ -11,6 +11,7 @@ public class Match {
 	
 	private Line matchingLine;
 	private Line surroundingLine;
+	private boolean matchOnTheLastLine;
 	
 	/**
 	 * Return the line that contains the search term
@@ -44,6 +45,22 @@ public class Match {
 	 */
 	public void setSurroundingLine(Line surroundingLine) {
 		this.surroundingLine = surroundingLine;
+	}
+
+	/**
+	 * Returns true if the word match is on the last line
+	 * @return true if the word match is on the last line
+	 */
+	public boolean isMatchOnTheLastLine() {
+		return matchOnTheLastLine;
+	}
+
+	/**
+	 * Injects if the word match is on the last line
+	 * @param matchOnTheLastLine
+	 */
+	public void setMatchOnTheLastLine(boolean matchOnTheLastLine) {
+		this.matchOnTheLastLine = matchOnTheLastLine;
 	}
 	
 }

@@ -69,6 +69,12 @@ public class SonnetBuilderServiceTest {
 		assertNotNull("Expecting a matching entry", wordDictionary.get("my"));
 		assertEquals("Expecting a match in the second sonnet", 2, wordDictionary.get("my").get(0).getSonnetNumber());
 		assertEquals("Expecting only one line number entry", 1, wordDictionary.get("my").get(0).getLineNumbers().size());
+		
+		//Check for same word in both the sonnets
+		List<WordInformation> multipleWordInfos = wordDictionary.get("thee");
+		assertEquals("Expecting two word information objects", 2, multipleWordInfos.size());
+		assertEquals("Expecting a match in first sonnet", 1,  multipleWordInfos.get(0).getSonnetNumber());
+		assertEquals("Expecting a match in the second sonnet as well", 2,  multipleWordInfos.get(1).getSonnetNumber());
 	}
 	
 	private List<Sonnet> buildSonnets() {
@@ -89,6 +95,9 @@ public class SonnetBuilderServiceTest {
 		Line line3 = mock(Line.class);
 		when(line3.getWords()).thenReturn("But as the riper should by time decease,");
 		lines.add(line3);
+		Line line4 = mock(Line.class);
+		when(line4.getWords()).thenReturn("To eat the world's due, by the grave and thee.");
+		lines.add(line4);
 		
 		when(sonnet1.getLines()).thenReturn(lines);
 		
@@ -98,21 +107,21 @@ public class SonnetBuilderServiceTest {
 		
 		List<Line> sonnet2Lines = new ArrayList<Line>();
 		
-		Line line4 = mock(Line.class);
-		when(line4.getWords()).thenReturn("If thou couldst answer 'This fair child of mine");
-		sonnet2Lines.add(line4);
 		Line line5 = mock(Line.class);
-		when(line5.getWords()).thenReturn("Shall sum my count and make my old excuse,'");
+		when(line5.getWords()).thenReturn("If thou couldst answer 'This fair child of mine");
 		sonnet2Lines.add(line5);
 		Line line6 = mock(Line.class);
-		when(line6.getWords()).thenReturn("Proving his beauty by succession thine!");
+		when(line6.getWords()).thenReturn("Shall sum my count and make my old excuse,'");
 		sonnet2Lines.add(line6);
 		Line line7 = mock(Line.class);
-		when(line7.getWords()).thenReturn("This were to be new made when thou art old");
+		when(line7.getWords()).thenReturn("Die single, and thine image dies with thee.");
 		sonnet2Lines.add(line7);
 		Line line8 = mock(Line.class);
-		when(line8.getWords()).thenReturn("And see thy blood warm when thou feel'st it cold.");
+		when(line8.getWords()).thenReturn("This were to be new made when thou art old");
 		sonnet2Lines.add(line8);
+		Line line9 = mock(Line.class);
+		when(line9.getWords()).thenReturn("And see thy blood warm when thou feel'st it cold.");
+		sonnet2Lines.add(line9);
 		
 		when(sonnet2.getLines()).thenReturn(sonnet2Lines);
 		

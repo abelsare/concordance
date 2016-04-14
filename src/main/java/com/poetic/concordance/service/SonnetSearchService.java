@@ -56,10 +56,12 @@ public class SonnetSearchService {
 			//start from 0. So subtract 1 from the lineNumber to get the correct line
 			Line matchingLine = sonnetLines.get(lineNumber - 1);
 			Line surroundingLine = null;
+			boolean matchOnTheLastLine = false;
 			if(lineNumber.equals(currentSonnet.getTotalLines())) {
 				//This means that the matching line is the last line of the sonnet
 				//So, surrounding line should be the line above it
 				surroundingLine = sonnetLines.get(lineNumber - 2);
+				matchOnTheLastLine = true;
 			} else {
 				//Surrounding line will be the line below the matching line
 				surroundingLine = sonnetLines.get(lineNumber);
@@ -68,6 +70,7 @@ public class SonnetSearchService {
 			Match matchResult = new Match();
 			matchResult.setMatchingLine(matchingLine);
 			matchResult.setSurroundingLine(surroundingLine);
+			matchResult.setMatchOnTheLastLine(matchOnTheLastLine);
 			matches.add(matchResult);
 		}
 		
