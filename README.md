@@ -11,4 +11,4 @@ It will list all the Sonnets where the search term is found. The results show th
 
 To run:
 Compile using mvn clean install
-Run the jar using java -jar target/target/concordance-1.0-SNAPSHOT.jar <input-directory>
+Run the jar using java -jar target/concordance-1.0-SNAPSHOT.jar <input-directory>
